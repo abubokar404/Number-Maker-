@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>Number Vault</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2d;--panel2:#182238;--line:#283550;--text:#edf3ff;--muted:#91a0ba;--green:#63f2b0;--blue:#8ba8ff;--danger:#ff7f91}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172445 0,#0b1020 55%);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 14px;font-weight:700;transition:.15s}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--green);color:#07150f}.secondary{background:#25324b;color:var(--text);border:1px solid var(--line)}.danger{background:#3a202e;color:#ffb2bf;border:1px solid #603043}.wrap{max-width:1000px;margin:auto;padding:24px 16px 50px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#63f2b0,#8ba8ff);color:#07150f;font-size:22px;font-weight:900}.brand h1{font-size:22px;margin:0;letter-spacing:-.5px}.brand p{margin:0;color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);font-size:12px}.panel{background:rgba(18,26,45,.94);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 15px 50px #0002}.auth{max-width:440px;margin:40px auto}.eyebrow{color:var(--green);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px}.heading{font-size:25px;letter-spacing:-.6px;margin:5px 0 4px}.muted{color:var(--muted)}.small{font-size:12px}.field{display:flex;flex-direction:column;gap:6px;margin:13px 0}.field label{font-size:13px;color:#cbd6ea;font-weight:650}.field input,.field textarea,.search{width:100%;border:1px solid var(--line);border-radius:12px;background:#0d1425;color:var(--text);padding:12px 13px;outline:none}.field input:focus,.field textarea:focus,.search:focus{border-color:var(--green);box-shadow:0 0 0 3px #63f2b018}.field textarea{min-height:80px;resize:vertical}.full{width:100%}.switch{margin-top:14px;text-align:center;color:var(--muted)}.linkbtn{background:none;color:var(--green);padding:0}.notice{padding:10px 12px;border-radius:12px;background:#182b35;color:#aaf8d2;margin:12px 0;font-size:13px}.error{background:#351f2a;color:#ffb2bf}.hidden{display:none!important}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat{padding:16px;border:1px solid var(--line);background:#121a2d;border-radius:16px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:23px;letter-spacing:-.5px}.layout{display:grid;grid-template-columns: .9fr 1.1fr;gap:16px;align-items:start}.sectiontitle{font-size:17px;margin:0 0 4px}.actions{display:flex;gap:8px;flex-wrap:wrap}.searchrow{display:flex;gap:9px;margin:14px 0}.search{flex:1;min-width:0}.contact{border:1px solid var(--line);background:#111a2d;border-radius:15px;padding:14px;margin-top:10px}.contacttop{display:flex;align-items:flex-start;gap:10px}.avatar{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border-radius:13px;background:#20394a;color:var(--green);font-weight:800}.contactinfo{flex:1;min-width:0}.contactname{font-weight:750;overflow-wrap:anywhere}.phone{color:var(--green);font-size:14px;overflow-wrap:anywhere}.note{color:var(--muted);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}.contactactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.contactactions button{font-size:12px;padding:8px 10px}.empty{text-align:center;padding:32px 12px;color:var(--muted)}.empty .symbol{font-size:32px;margin-bottom:6px}.footer{text-align:center;color:#71809a;font-size:12px;margin-top:22px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#e8fff4;color:#082016;border-radius:99px;padding:11px 18px;box-shadow:0 8px 35px #0006;z-index:10;font-weight:700;max-width:90%;text-align:center}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){.wrap{padding:17px 12px 35px}.top{align-items:flex-start}.brand h1{font-size:20px}.layout{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:20px}.panel{padding:16px}.heading{font-size:23px}.pill{font-size:11px}}
+@media(max-width:390px){.formrow{grid-template-columns:1fr}.top{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">N</div><div><h1>Number Vault</h1><p>Your private contact space</p></div></div>
+    <span class="pill" id="statusPill">● Secure workspace</span>
+  </header>
+
+  <section id="authPanel" class="panel auth">
+    <div class="eyebrow">Personal contact manager</div>
+    <h2 class="heading" id="authTitle">Welcome back</h2>
+    <p class="muted" id="authSubtitle">Sign in to access your saved contacts.</p>
+    <div id="authMessage" class="notice hidden"></div>
+    <form id="authForm">
+      <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" minlength="6" autocomplete="current-password" required placeholder="At least 6 characters"></div>
+      <button class="primary full" id="authSubmit" type="submit">Sign in</button>
+    </form>
+    <div class="switch"><span id="switchText">New here?</span> <button class="linkbtn" id="switchMode" type="button">Create an account</button></div>
+    <p class="muted small" style="margin-top:18px">Your contacts are private to your account. Never share your password.</p>
+  </section>
+
+  <main id="appPanel" class="hidden">
+    <div class="top" style="margin-bottom:15px">
+      <div><div class="eyebrow">Your dashboard</div><div id="userEmail" class="muted small"></div></div>
+      <button class="secondary" id="logoutBtn">Sign out ↗</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>Saved contacts</span><strong id="totalCount">0</strong></div>
+      <div class="stat"><span>Matching search</span><strong id="matchCount">0</strong></div>
+      <div class="stat"><span>Storage</span><strong style="font-size:16px;color:var(--green)">Cloud</strong></div>
+    </div>
+    <div class="layout">
+      <section class="panel">
+        <div class="eyebrow">Contact details</div>
+        <h2 class="sectiontitle" id="formTitle">Add a number</h2>
+        <p class="muted small">Save a name, phone number and optional note.</p>
+        <div id="formMessage" class="notice hidden"></div>
+        <form id="contactForm">
+          <div class="field"><label for="contactName">Name *</label><input id="contactName" maxlength="100" required placeholder="e.g. Shamim"></div>
+          <div class="field"><label for="contactPhone">Phone number *</label><input id="contactPhone" maxlength="40" required inputmode="tel" placeholder="+8801XXXXXXXXX"></div>
+          <div class="field"><label for="contactNote">Note (optional)</label><textarea id="contactNote" maxlength="1000" placeholder="Any helpful detail..."></textarea></div>
+          <div class="actions"><button class="primary" id="saveBtn" type="submit">＋ Save contact</button><button class="secondary hidden" id="cancelEdit" type="button">Cancel edit</button></div>
+        </form>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Your collection</div>
+        <h2 class="sectiontitle">Saved contacts</h2>
+        <div class="searchrow"><input class="search" id="searchInput" placeholder="Search name, number or note…" aria-label="Search contacts"><button class="secondary" id="exportBtn" title="Export CSV">Export CSV</button></div>
+        <div id="listMessage" class="muted small"></div>
+        <div id="contactList"></div>
+      </section>
+    </div>
+  </main>
+  <div class="footer">Number Vault · Private by design · Built for your contacts</div>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/*
+  SETUP: Replace both values below with your Supabase Project URL and publishable/anon key.
+  Never put a service_role/secret key in browser code.
+*/
+const SUPABASE_URL = "https://cyfmitdmzsstuhluvsqx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_5rfhcl1_a279xVud5jdoUw_HL1Z21zT";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_KEY.includes("YOUR_");
+const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+const $ = id => document.getElementById(id);
+let mode = "login", currentUser = null, contacts = [], editingId = null, toastTimer;
+function toast(message){$("toast").textContent=message;$("toast").classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2600)}
+function message(id,text,error=false){const el=$(id);el.textContent=text;el.classList.remove("hidden","error");if(error)el.classList.add("error")}
+function clearMessage(id){$(id).textContent="";$(id).classList.add("hidden");$(id).classList.remove("error")}
+function safeText(s){return String(s??"")}
+function escapeHTML(s){return safeText(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function setMode(next){mode=next;const login=mode==="login";$("authTitle").textContent=login?"Welcome back":"Create your account";$("authSubtitle").textContent=login?"Sign in to access your saved contacts.":"Sign up to keep your contacts synced across devices.";$("authSubmit").textContent=login?"Sign in":"Create account";$("switchText").textContent=login?"New here?":"Already have an account?";$("switchMode").textContent=login?"Create an account":"Sign in";$("password").autocomplete=login?"current-password":"new-password";clearMessage("authMessage")}
+$("switchMode").addEventListener("click",()=>setMode(mode==="login"?"signup":"login"));
+function showAuth(){currentUser=null;$("authPanel").classList.remove("hidden");$("appPanel").classList.add("hidden");$("statusPill").textContent="● Secure workspace"}
+function showApp(user){currentUser=user;$("authPanel").classList.add("hidden");$("appPanel").classList.remove("hidden");$("userEmail").textContent=user.email||"Signed in";$("statusPill").textContent="● Signed in";loadContacts()}
+$("authForm").addEventListener("submit",async e=>{e.preventDefault();clearMessage("authMessage");if(!db){message("authMessage","Setup needed: add your Supabase URL and publishable key in index.html.",true);return}
+const email=$("email").value.trim(),password=$("password").value;const btn=$("authSubmit");btn.disabled=true;btn.textContent="Please wait…";
+try{const result=mode==="login"?await db.auth.signInWithPassword({email,password}):await db.auth.signUp({email,password});if(result.error)throw result.error;
+if(mode==="signup"&&!result.data.session){message("authMessage","Account created. Check your email to confirm, then sign in.");setMode("login")}else if(result.data.user)showApp(result.data.user);
+}catch(err){message("authMessage",err.message||"Authentication failed.",true)}finally{btn.disabled=false;btn.textContent=mode==="login"?"Sign in":"Create account"}});
+$("logoutBtn").addEventListener("click",async()=>{if(db)await db.auth.signOut();contacts=[];showAuth();setMode("login")});
+
+async function loadContacts(){if(!db||!currentUser)return;$("listMessage").textContent="Loading contacts…";
+const {data,error}=await db.from("contacts").select("id,name,phone,note,created_at").order("created_at",{ascending:false});
+if(error){$("listMessage").textContent="Could not load contacts: "+error.message;return}contacts=data||[];renderContacts()}
+function renderContacts(){const q=$("searchInput").value.trim().toLowerCase();const filtered=contacts.filter(c=>[c.name,c.phone,c.note].some(v=>safeText(v).toLowerCase().includes(q)));
+$("totalCount").textContent=contacts.length;$("matchCount").textContent=filtered.length;$("listMessage").textContent=filtered.length?`${filtered.length} contact${filtered.length===1?"":"s"} shown`:"";
+const list=$("contactList");if(!filtered.length){list.innerHTML=`<div class="empty"><div class="symbol">⌕</div><strong>${contacts.length?"No matches found":"No contacts yet"}</strong><div class="small" style="margin-top:4px">${contacts.length?"Try a different search.":"Add your first number using the form."}</div></div>`;return}
+list.innerHTML=filtered.map(c=>`<article class="contact"><div class="contacttop"><div class="avatar">${escapeHTML((c.name||"?").trim().charAt(0).toUpperCase())}</div><div class="contactinfo"><div class="contactname">${escapeHTML(c.name)}</div><div class="phone">${escapeHTML(c.phone)}</div>${c.note?`<div class="note">${escapeHTML(c.note)}</div>`:""}</div></div><div class="contactactions"><button class="secondary" data-action="copy" data-id="${c.id}">▣ Copy number</button><button class="secondary" data-action="edit" data-id="${c.id}">✎ Edit</button><button class="danger" data-action="delete" data-id="${c.id}">Delete</button></div></article>`).join("")}
+$("searchInput").addEventListener("input",renderContacts);
+
+$("contactForm").addEventListener("submit",async e=>{e.preventDefault();clearMessage("formMessage");if(!db||!currentUser){message("formMessage","Please sign in first.",true);return}
+const name=$("contactName").value.trim(),phone=$("contactPhone").value.trim(),note=$("contactNote").value.trim();if(!name||!phone){message("formMessage","Name and phone number are required.",true);return}
+const btn=$("saveBtn");btn.disabled=true;btn.textContent="Saving…";
+try{let result;if(editingId){result=await db.from("contacts").update({name,phone,note}).eq("id",editingId).select().single()}else{result=await db.from("contacts").insert({name,phone,note,user_id:currentUser.id}).select().single()}
+if(result.error)throw result.error;resetForm();await loadContacts();toast(editingId?"Contact updated":"Contact saved")}catch(err){message("formMessage",err.message||"Could not save contact.",true)}finally{btn.disabled=false;btn.textContent=editingId?"Save changes":"＋ Save contact"}});
+function resetForm(){$("contactForm").reset();editingId=null;$("formTitle").textContent="Add a number";$("saveBtn").textContent="＋ Save contact";$("cancelEdit").classList.add("hidden");clearMessage("formMessage")}
+$("cancelEdit").addEventListener("click",resetForm);
+$("contactList").addEventListener("click",async e=>{const b=e.target.closest("button[data-action]");if(!b)return;const c=contacts.find(x=>String(x.id)===b.dataset.id);if(!c)return;
+if(b.dataset.action==="copy"){try{await navigator.clipboard.writeText(c.phone);toast("Number copied")}catch{const t=document.createElement("textarea");t.value=c.phone;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();toast("Number copied")}return}
+if(b.dataset.action==="edit"){editingId=c.id;$("contactName").value=c.name;$("contactPhone").value=c.phone;$("contactNote").value=c.note||"";$("formTitle").textContent="Edit contact";$("saveBtn").textContent="Save changes";$("cancelEdit").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});return}
+if(b.dataset.action==="delete"){if(!confirm(`Delete "${c.name}"? This cannot be undone.`))return;b.disabled=true;const {error}=await db.from("contacts").delete().eq("id",c.id);if(error){toast("Delete failed: "+error.message);b.disabled=false;return}if(editingId===c.id)resetForm();await loadContacts();toast("Contact deleted")}
+});
+$("exportBtn").addEventListener("click",()=>{const q=$("searchInput").value.trim().toLowerCase();const rows=contacts.filter(c=>[c.name,c.phone,c.note].some(v=>safeText(v).toLowerCase().includes(q)));if(!rows.length){toast("No contacts to export");return}
+const cell=v=>'"'+safeText(v).replace(/"/g,'""')+'"';const csv="\uFEFF"+[["Name","Phone","Note"],...rows.map(c=>[c.name,c.phone,c.note||""])].map(r=>r.map(cell).join(",")).join("\r\n");const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));const a=document.createElement("a");a.href=url;a.download="number-vault-contacts.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast("CSV export ready")});
+
+async function init(){if(!configured){showAuth();message("authMessage","Setup needed: create a Supabase project, run the SQL setup, then add your Project URL and publishable key in this file.");return}
+const {data:{session}}=await db.auth.getSession();if(session?.user)showApp(session.user);else showAuth();
+db.auth.onAuthStateChange((_event,session)=>{if(session?.user){if(!currentUser||currentUser.id!==session.user.id)showApp(session.user)}else if(currentUser)showAuth()})}
+init();
+</script>
+</body>
+</html>
